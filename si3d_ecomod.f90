@@ -7,7 +7,7 @@
 !
 !-------------------------------------------------------------------------
 
-   !USE si3d_ecomod
+   USE omp_lib
    USE si3d_types
 
    IMPLICIT NONE
@@ -678,7 +678,6 @@ SUBROUTINE srcsnkWQ
 
   !... Local variables
   INTEGER:: i, j, k, l, liter, k1s, kms, iteration
-  integer, intent(in) :: n 
 
   ! reset soursesink = 0
   sourcesink = 0.0
@@ -753,7 +752,7 @@ SUBROUTINE sourceDO(kwq,lwq)
 
   ! ... Arguments
   INTEGER, INTENT (IN) :: kwq,lwq
-  REAL, INTENT(IN) :: num_threads
+  
 
   !. . . Local Variables
   REAL    ::   Tk, lnOS, OS, Patm, ln_Pwv, Pwv, theta2, f_SOD 
@@ -824,7 +823,7 @@ SUBROUTINE sourcePON(kwq,lwq)
 
 ! ... Arguments
   INTEGER, INTENT (IN) :: kwq,lwq
-  REAL, INTENT(IN) :: num_threads
+  
 
 !... Local variables
 REAL:: decompositionPON, f_decom, settlingPON, resuspensionPON
@@ -871,7 +870,7 @@ SUBROUTINE sourceDON(kwq,lwq)
 
 ! ... Arguments
 INTEGER, INTENT (IN) :: kwq,lwq
-REAL, INTENT(IN) :: num_threads 
+ 
 
 !. . . Local variables
 REAL:: mineralizationDON, f_miner, atmosdepositionDON, f_sedflux, sedfluxDON
@@ -931,7 +930,7 @@ SUBROUTINE sourceNH4(kwq,lwq)
 
 ! ... Arguments
    INTEGER, INTENT (IN) :: kwq,lwq
-   REAL, INTENT(IN) :: num_threads
+   
 
 !. . . Local Variables
 REAL:: nitrification, f_nitrif, atmosdepositionNH4, sedfluxNH4, f_sedflux
@@ -999,7 +998,7 @@ SUBROUTINE sourceNO3(kwq,lwq)
 
 ! ... Arguments
 INTEGER, INTENT (IN) :: kwq,lwq
-REAL, INTENT(IN) :: num_threads
+
 
 !. . . Local Variables
 REAL:: denitrification, atmosdepositionNO3, sedfluxNO3, f_sedflux
@@ -1048,7 +1047,7 @@ SUBROUTINE sourcePOP(kwq,lwq)
 
 ! ... Arguments
    INTEGER, INTENT (IN) :: kwq,lwq
-   REAL, INTENT(IN) :: num_threads
+   
 
 !... Local variables
 REAL:: decompositionPOP, f_decom, settlingPOP, resuspensionPOP
@@ -1094,7 +1093,7 @@ SUBROUTINE sourceDOP(kwq, lwq)
 
 ! ... Arguments
    INTEGER, INTENT (IN) :: kwq,lwq
-   REAL, INTENT(IN) :: num_threads
+   
 
 !. . . Local variables
 REAL:: mineralizationDOP, f_miner, atmosdepositionDOP, f_sedflux, sedfluxDOP
@@ -1155,7 +1154,7 @@ SUBROUTINE sourcePO4(kwq, lwq)
 
 ! ... Arguments
 INTEGER, INTENT (IN) :: kwq,lwq
-REAL, INTENT(IN) :: num_threads
+
 
 !. . . Local Variables
 REAL:: atmosdepositionPO4, sedfluxPO4, f_sedflux
@@ -1200,7 +1199,7 @@ SUBROUTINE sourcePOC (kwq, lwq)
 
   ! ... Arguments
   INTEGER, INTENT (IN) :: kwq,lwq
-  REAL, INTENT(IN) :: num_threads
+  
 
 !... Local variables
 REAL:: decompositionPOC, f_decom, settlingPOC, resuspensionPOC
@@ -1246,7 +1245,7 @@ SUBROUTINE sourceDOC(kwq, lwq)
 
   ! ... Arguments
   INTEGER, INTENT (IN) :: kwq,lwq
-  REAL, INTENT(IN) :: num_threads
+  
 
 !. . . Local variables
 REAL:: mineralizationDOC, f_miner, atmosdepositionDOC, f_sedflux, sedfluxDOC
@@ -1304,7 +1303,7 @@ SUBROUTINE sourceALG1(kwq, lwq)
 !--------------------------------------------------------------------------
   ! ... Arguments
   INTEGER, INTENT (IN) :: kwq,lwq
-  REAL, INTENT(IN) :: num_threads
+  
 
   !. . .Local Variables
   REAL::  mu1, f_L1, f_T, f_N, f_P, N_conc
@@ -1364,7 +1363,8 @@ SUBROUTINE sourceALG1(kwq, lwq)
     resus1   = R_resusp * tracerpp(kwq,lwq,LALG1)/ hpp(kwq,lwq)
 
 ! Source-Sink equation
-sourcesink(kwq,lwq,LALG1) = sourcesink(kwq,lwq,LALG1) + growth1 - mort1 - graz1 - sett1 + resus1
+!sourcesink(kwq,lwq,LALG1) = sourcesink(kwq,lwq,LALG1) + growth1 - mort1 - graz1 - sett1 + resus1
+sourcesink(kwq,lwq,LALG1) = sourcesink(kwq,lwq,LALG1) + growth1 - mort1 - graz1 
 
  !  IF (lwq .eq. 300) THEN
  !     IF (kwq .eq. 5) THEN
@@ -1421,7 +1421,7 @@ SUBROUTINE sourceALG2(kwq, lwq)
 !--------------------------------------------------------------------------
   ! ... Arguments
   INTEGER, INTENT (IN) :: kwq,lwq
-  REAL, INTENT(IN) :: num_threads
+  
 
   !. . .Local Variables
   REAL::  mu2, f_L2, f_T, f_N, f_P, N_conc
@@ -1522,7 +1522,7 @@ SUBROUTINE sourceALG3(kwq, lwq)
 !--------------------------------------------------------------------------
   ! ... Arguments
   INTEGER, INTENT (IN) :: kwq,lwq
-  REAL, INTENT(IN) :: num_threads
+  
 
   !. . .Local Variables
   REAL::  mu3, f_L3, f_T, f_N, f_P, N_conc
@@ -1622,7 +1622,7 @@ SUBROUTINE sourceALG4(kwq, lwq)
 !--------------------------------------------------------------------------
   ! ... Arguments
   INTEGER, INTENT (IN) :: kwq,lwq
-  REAL, INTENT(IN) :: num_threads
+  
 
   !. . .Local Variables
   REAL::  mu4, f_L4, f_T, f_N, f_P, N_conc
