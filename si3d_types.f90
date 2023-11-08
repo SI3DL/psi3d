@@ -68,7 +68,7 @@
             & iturb, ilin, ihomo, ipt, ipx, ipc, iadv, ihd, ibc, isal,   &
             & nnodes, nopen, iseich, idbg, iextrp, iyr0, imon0, iday0,   &
             & ihr0, istd, igs, ivpv, iupwind, ioutg, ipv, ipsal, ipxml,  &
-            & itspf, itrsca, itrmom, ibathyf, apxml, iTurbVars, ipwq
+            & itspf, itrsca, itrmom, ibathyf, apxml, iTurbVars, ipwq, nswq
    CHARACTER :: title*80, sal_ic_file*50, wse_file*7, flw_file*7,        &
               & hcn_file*7, sal_file*7, barrier_file*50, commentline*50
 
@@ -366,12 +366,12 @@
 
    ! ... Integer switches to deterimine if constituent is modeled
    INTEGER:: iDO , iPON, iDON, iNH4, iNO3, iPOP, iDOP, iPO4
-   INTEGER:: iDOC, iPOC, iALG1, iALG2, iALG3, iALG4
+   INTEGER:: iDOC, iPOC, iALG1, iALG2, iALG3, iALG4, iFT, iFN, iFP, iFL1
 
 
    ! ... Integer to determine constituent location
    INTEGER:: LDO , LPON, LDON, LNH4, LNO3, LPOP, LDOP, LPO4
-   INTEGER:: LDOC, LPOC, LALG1, LALG2, LALG3, LALG4
+   INTEGER:: LDOC, LPOC, LALG1, LALG2, LALG3, LALG4, LFT, LFN, LFP, LFL1
 
    ! ... Model Constants - read from input file and many used for calibration
    ! - Stochiometeric constants

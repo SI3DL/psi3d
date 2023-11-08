@@ -177,6 +177,7 @@ SUBROUTINE input
      READ (UNIT=i5, FMT='(14X,I20)', IOSTAT=ios) iotr
      ! ipwq = Time step to run WQ modules. E.g. in idt = 100 s, and want to run WQ every 1 h, ipwq = 36;
      READ (UNIT=i5, FMT='(14X,I20)', IOSTAT=ios) ipwq 
+     READ (UNIT=i5, FMT='(14X,I20)', IOSTAT=ios) nswq !! ACC 06/16/2023 added to restart scalars after warmup
      IF (ios  /= 0) CALL input_error ( ios, 9 )
    ELSE IF (ntr == 0) THEN
      READ (UNIT=i5, FMT='(14X,I20)', IOSTAT=ios)

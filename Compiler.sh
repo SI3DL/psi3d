@@ -29,9 +29,9 @@ if $IFSI3D
 then
 	cd $SI3DDIR
 	make omp
-	rm *.o
+	#rm *.o
 else
 	cd $SI3DDIR
 	make si3d
-	rm *.o
+	#rm *.o
 fi

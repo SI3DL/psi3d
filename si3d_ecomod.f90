@@ -426,7 +426,8 @@ SUBROUTINE WQinput
   &    iPON, iDON, iNH4, iNO3, &
   &    iPOP, iDOP, iPO4, &
   &    iPOC, iDOC, &
-  &    iALG1, iALG2, iALG3, iALG4
+  &    iALG1, iALG2, iALG3, iALG4, &
+  &    iFT, iFN, iFP, iFL1
   IF (ios /= 0) CALL input_error ( ios, 92)
 
   !. . . Read model stochiometeric constants and other constants
@@ -503,6 +504,7 @@ SUBROUTINE WQinput
     PRINT*, "iPON = ", iPON, "iDON = ", iDON, "iNH4 = ", iNH4, "iNO3 = ", iNO3
     PRINT*, "iPOP = ", iPOP, "iDOP = ", iDOP, "iPO4 = ", iPO4
     PRINT*, "iALG1 = ", iALG1, "iALG2 = ", iALG2, "iALG3 = ", iALG3, "iALG4 = ", iALG4
+    PRINT*, "iFT = ", iFT, "iFN = ", iFN, "iFP = ", iFP, "iFL1 = ", iFL1
   
   END IF
 
@@ -531,6 +533,7 @@ SUBROUTINE WQinit
   LPOP=0; LDOP=0; LPO4=0
   LALG1=0; LALG2=0; LALG3=0; LALG4=0;
   LDOC=0; LPOC=0;
+  LFT=0; LFN=0; LFP=0; LFL1=0;
   
   !. . Assign Lxx to each constituent modeled
   !. . .. first need to define intermediate array tracerpplocal
@@ -606,6 +609,26 @@ SUBROUTINE WQinit
     i = i+1
   END IF
 
+  IF (iFT == 1) THEN
+    tracerpplocal(i) = 15
+    i = i+1
+  END IF
+
+  IF (iFN == 1) THEN
+    tracerpplocal(i) = 16
+    i = i+1
+  END IF
+
+  IF (iFP == 1) THEN
+    tracerpplocal(i) = 17
+    i = i+1
+  END IF
+
+  IF (iFL1 == 1) THEN
+    tracerpplocal(i) = 18
+    i = i+1
+  END IF
+
   sumtr = 0
   DO j = 1, ntrmax
     IF (tracerpplocal(j)>0) sumtr = sumtr + 1
@@ -654,7 +677,15 @@ END IF
     ELSEIF (tracerpplocal(i) == 13) THEN
     LALG3 = i 
    ELSEIF (tracerpplocal(i) == 14) THEN
-    LALG4 = i 
+    LALG4 = i     
+   ELSEIF (tracerpplocal(i) == 15) THEN
+    LFT = i 
+   ELSEIF (tracerpplocal(i) == 16) THEN
+    LFN = i 
+   ELSEIF (tracerpplocal(i) == 17) THEN
+    LFP = i 
+   ELSEIF (tracerpplocal(i) == 18) THEN
+    LFL1 = i 
   END IF
   END DO
 
@@ -663,6 +694,7 @@ END IF
     PRINT*, "LPON = ", LPON, "LDON = ", LDON, "LNH4 = ", LNH4, "LNO3 = ", LNO3
     PRINT*, "LPOP = ", LPOP, "LDOP = ", LDOP, "LPO4 = ", LPO4
     PRINT*, "LALG1 = ", LALG1, "LALG2 = ", LALG2, "LALG3 = ", LALG3, "LALG4 = ", LALG4
+    PRINT*, "LFT = ", LFT, "LFN = ", LFN, "LFP = ", LFP, "LFL1 = ", LFL1
   END IF
 
 END SUBROUTINE WQinit
@@ -678,6 +710,10 @@ SUBROUTINE srcsnkWQ
 
   !... Local variables
   INTEGER:: i, j, k, l, liter, k1s, kms, iteration
+<<<<<<< HEAD
+  !integer, intent(in) :: n 
+=======
+>>>>>>> 7b4ff5f9ccac5500b0d2c7a7beb071a923c9d2fd
 
   ! reset soursesink = 0
   sourcesink = 0.0
@@ -734,7 +770,18 @@ SUBROUTINE srcsnkWQ
       IF (iALG4 == 1) THEN
         CALL sourceALG4(k,l)
       END IF
-
+      IF (iFT == 1) THEN
+        CALL sourceFT(k,l)
+      END IF
+      IF (iFN == 1) THEN
+        CALL sourceFN(k,l)
+      END IF
+      IF (iFP == 1) THEN
+        CALL sourceFP(k,l)
+      END IF
+      IF (iFL1 == 1) THEN
+        CALL sourceFL1(k,l)
+      END IF
     END DO
   END DO
 
@@ -752,7 +799,11 @@ SUBROUTINE sourceDO(kwq,lwq)
 
   ! ... Arguments
   INTEGER, INTENT (IN) :: kwq,lwq
+<<<<<<< HEAD
+  !REAL, INTENT(IN) :: num_threads
+=======
   
+>>>>>>> 7b4ff5f9ccac5500b0d2c7a7beb071a923c9d2fd
 
   !. . . Local Variables
   REAL    ::   Tk, lnOS, OS, Patm, ln_Pwv, Pwv, theta2, f_SOD 
@@ -823,7 +874,11 @@ SUBROUTINE sourcePON(kwq,lwq)
 
 ! ... Arguments
   INTEGER, INTENT (IN) :: kwq,lwq
+<<<<<<< HEAD
+  !REAL, INTENT(IN) :: num_threads
+=======
   
+>>>>>>> 7b4ff5f9ccac5500b0d2c7a7beb071a923c9d2fd
 
 !... Local variables
 REAL:: decompositionPON, f_decom, settlingPON, resuspensionPON
@@ -870,7 +925,11 @@ SUBROUTINE sourceDON(kwq,lwq)
 
 ! ... Arguments
 INTEGER, INTENT (IN) :: kwq,lwq
+<<<<<<< HEAD
+!REAL, INTENT(IN) :: num_threads 
+=======
  
+>>>>>>> 7b4ff5f9ccac5500b0d2c7a7beb071a923c9d2fd
 
 !. . . Local variables
 REAL:: mineralizationDON, f_miner, atmosdepositionDON, f_sedflux, sedfluxDON
@@ -930,10 +989,19 @@ SUBROUTINE sourceNH4(kwq,lwq)
 
 ! ... Arguments
    INTEGER, INTENT (IN) :: kwq,lwq
+<<<<<<< HEAD
+   !REAL, INTENT(IN) :: num_threads
+=======
    
+>>>>>>> 7b4ff5f9ccac5500b0d2c7a7beb071a923c9d2fd
 
 !. . . Local Variables
 REAL:: nitrification, f_nitrif, atmosdepositionNH4, sedfluxNH4, f_sedflux
+
+! ... Eliminate negative values of NH4 (min detection)
+IF (tracerpp(kwq,lwq,LNH4) .lt. 0) THEN
+   tracerpp(kwq,lwq,LNH4) = 0.001
+END IF
 
 !. . . Calculate nitrification
   ! Calculate DO inhibition of nitrification
@@ -998,10 +1066,19 @@ SUBROUTINE sourceNO3(kwq,lwq)
 
 ! ... Arguments
 INTEGER, INTENT (IN) :: kwq,lwq
+<<<<<<< HEAD
+!REAL, INTENT(IN) :: num_threads
+=======
 
+>>>>>>> 7b4ff5f9ccac5500b0d2c7a7beb071a923c9d2fd
 
 !. . . Local Variables
 REAL:: denitrification, atmosdepositionNO3, sedfluxNO3, f_sedflux
+
+! ... Eliminate negative values of NO3 (min detection)
+IF (tracerpp(kwq,lwq,LNO3) .lt. 0) THEN
+   tracerpp(kwq,lwq,LNO3) = 0.001
+END IF
 
 ! ... Denitrification (release of N2 gas)
 denitrification = R_denit* (Theta_denit**(salp(kwq,lwq) - 20.0)) *tracerpp(kwq,lwq,LNO3)
@@ -1047,7 +1124,11 @@ SUBROUTINE sourcePOP(kwq,lwq)
 
 ! ... Arguments
    INTEGER, INTENT (IN) :: kwq,lwq
+<<<<<<< HEAD
+   !REAL, INTENT(IN) :: num_threads
+=======
    
+>>>>>>> 7b4ff5f9ccac5500b0d2c7a7beb071a923c9d2fd
 
 !... Local variables
 REAL:: decompositionPOP, f_decom, settlingPOP, resuspensionPOP
@@ -1093,7 +1174,11 @@ SUBROUTINE sourceDOP(kwq, lwq)
 
 ! ... Arguments
    INTEGER, INTENT (IN) :: kwq,lwq
+<<<<<<< HEAD
+   !REAL, INTENT(IN) :: num_threads
+=======
    
+>>>>>>> 7b4ff5f9ccac5500b0d2c7a7beb071a923c9d2fd
 
 !. . . Local variables
 REAL:: mineralizationDOP, f_miner, atmosdepositionDOP, f_sedflux, sedfluxDOP
@@ -1154,7 +1239,11 @@ SUBROUTINE sourcePO4(kwq, lwq)
 
 ! ... Arguments
 INTEGER, INTENT (IN) :: kwq,lwq
+<<<<<<< HEAD
+!REAL, INTENT(IN) :: num_threads
+=======
 
+>>>>>>> 7b4ff5f9ccac5500b0d2c7a7beb071a923c9d2fd
 
 !. . . Local Variables
 REAL:: atmosdepositionPO4, sedfluxPO4, f_sedflux
@@ -1199,7 +1288,11 @@ SUBROUTINE sourcePOC (kwq, lwq)
 
   ! ... Arguments
   INTEGER, INTENT (IN) :: kwq,lwq
+<<<<<<< HEAD
+  !REAL, INTENT(IN) :: num_threads
+=======
   
+>>>>>>> 7b4ff5f9ccac5500b0d2c7a7beb071a923c9d2fd
 
 !... Local variables
 REAL:: decompositionPOC, f_decom, settlingPOC, resuspensionPOC
@@ -1245,7 +1338,11 @@ SUBROUTINE sourceDOC(kwq, lwq)
 
   ! ... Arguments
   INTEGER, INTENT (IN) :: kwq,lwq
+<<<<<<< HEAD
+  !REAL, INTENT(IN) :: num_threads
+=======
   
+>>>>>>> 7b4ff5f9ccac5500b0d2c7a7beb071a923c9d2fd
 
 !. . . Local variables
 REAL:: mineralizationDOC, f_miner, atmosdepositionDOC, f_sedflux, sedfluxDOC
@@ -1303,7 +1400,11 @@ SUBROUTINE sourceALG1(kwq, lwq)
 !--------------------------------------------------------------------------
   ! ... Arguments
   INTEGER, INTENT (IN) :: kwq,lwq
+<<<<<<< HEAD
+  !REAL, INTENT(IN) :: num_threads
+=======
   
+>>>>>>> 7b4ff5f9ccac5500b0d2c7a7beb071a923c9d2fd
 
   !. . .Local Variables
   REAL::  mu1, f_L1, f_T, f_N, f_P, N_conc
@@ -1312,8 +1413,8 @@ SUBROUTINE sourceALG1(kwq, lwq)
   !. .  Calculate growth limiting factors
     ! Light Limitation
       f_L1 = ((Qsw*QswFr(kwq,lwq)*0.47)/light_sat1) *EXP(1 -((Qsw*QswFr(kwq,lwq)*0.47)/light_sat1)) ! Steele (1962) = Photoinhibited
-      IF (f_L1 .lt. 0) THEN
-         f_L1 = 0
+      IF (f_L1 .lt. 0.01) THEN
+         f_L1 = 0.01
       END IF
 
    ! temperature limitaton
@@ -1347,6 +1448,9 @@ SUBROUTINE sourceALG1(kwq, lwq)
 !. . Calculate growth
     mu1 = mu_max1 * MIN(f_L1,f_N,f_P)
     growth1 = mu1 * f_T * tracerpp(kwq,lwq,LALG1)
+    IF ((tracerpp(kwq,lwq,LALG1)+ growth1) .le. 0.01) THEN
+        growth1 = 0.0 ! This limits growth to a minium phytoplankton concentration. If phyto < 0.01 ug/L, then growth will be zero
+    END IF
 !. . Calculate mortality, respiration & excretion
     mort1   = R_mor1 * Theta_mor**(salp(kwq,lwq) - 20.0) * tracerpp(kwq,lwq,LALG1)
       IF (mort1 .lt. 0.0) THEN
@@ -1421,7 +1525,11 @@ SUBROUTINE sourceALG2(kwq, lwq)
 !--------------------------------------------------------------------------
   ! ... Arguments
   INTEGER, INTENT (IN) :: kwq,lwq
+<<<<<<< HEAD
+  !REAL, INTENT(IN) :: num_threads
+=======
   
+>>>>>>> 7b4ff5f9ccac5500b0d2c7a7beb071a923c9d2fd
 
   !. . .Local Variables
   REAL::  mu2, f_L2, f_T, f_N, f_P, N_conc
@@ -1522,7 +1630,11 @@ SUBROUTINE sourceALG3(kwq, lwq)
 !--------------------------------------------------------------------------
   ! ... Arguments
   INTEGER, INTENT (IN) :: kwq,lwq
+<<<<<<< HEAD
+  !REAL, INTENT(IN) :: num_threads
+=======
   
+>>>>>>> 7b4ff5f9ccac5500b0d2c7a7beb071a923c9d2fd
 
   !. . .Local Variables
   REAL::  mu3, f_L3, f_T, f_N, f_P, N_conc
@@ -1622,7 +1734,11 @@ SUBROUTINE sourceALG4(kwq, lwq)
 !--------------------------------------------------------------------------
   ! ... Arguments
   INTEGER, INTENT (IN) :: kwq,lwq
+<<<<<<< HEAD
+  !REAL, INTENT(IN) :: num_threads
+=======
   
+>>>>>>> 7b4ff5f9ccac5500b0d2c7a7beb071a923c9d2fd
 
   !. . .Local Variables
   REAL::  mu4, f_L4, f_T, f_N, f_P, N_conc
@@ -1714,87 +1830,90 @@ END IF
 END SUBROUTINE sourceALG4
 
 
-!************************************************************************
-!SUBROUTINE sourceFT(kwq, lwq)
-!*********************************************************************
-!
-! Purpose: To calculate FT
-!
-!--------------------------------------------------------------------------
-!  ! ... Arguments
-!  INTEGER, INTENT (IN) :: kwq,lwq  
-! ! temperature limitaton
-!   
-!   tracerpp(kwq,lwq,LFT) = Theta_mu**(salp(kwq,lwq) - 20.0)
-!
-!END SUBROUTINE sourceFT
+! !************************************************************************
+! SUBROUTINE sourceFT(kwq, lwq)
+! !*********************************************************************
+! !
+! ! Purpose: To calculate FT
+! !
+! !--------------------------------------------------------------------------
+! ! ... Arguments
+!   INTEGER, INTENT (IN) :: kwq,lwq  
+!  ! temperature limitaton
+   
+!    tracerpp(kwq,lwq,LFT) = Theta_mu**(salp(kwq,lwq) - 20.0)
+
+! END SUBROUTINE sourceFT
 
 
-!************************************************************************
-!SUBROUTINE sourceFN(kwq, lwq)
-!*********************************************************************
-!
-! Purpose: To calculate FN
-!
-!--------------------------------------------------------------------------
-!  ! ... Arguments
-!  INTEGER, INTENT (IN) :: kwq,lwq  
-!  REAL:: N_conc
-!     
+! !************************************************************************
+! SUBROUTINE sourceFN(kwq, lwq)
+! !*********************************************************************
+! !
+! ! Purpose: To calculate FN
+! !
+! !--------------------------------------------------------------------------
+! ! ... Arguments
+!   INTEGER, INTENT (IN) :: kwq,lwq  
+!   REAL:: N_conc
+     
+!  ! nutrient limitation - but only if the nutrients are modeled
+!  IF ((INH4 ==1) .AND. (INO3 ==1)) THEN
+!    N_conc = tracerpp(kwq,lwq,LNH4) + tracerpp(kwq,lwq,LNO3)
+!    tracerpp(kwq,lwq,LFN)  = N_conc/(KSN + N_conc)
+
+!  ELSE IF (INH4 == 1 .AND. INO3 ==0) THEN
+!    N_conc = tracerpp(kwq,lwq,LNH4)
+!    tracerpp(kwq,lwq,LFN) = N_conc/(KSN + N_conc)
+
+!  ELSE IF (INH4 == 0 .AND. INO3 ==1) THEN
+!    N_conc = tracerpp(kwq,lwq,LNO3)
+!    tracerpp(kwq,lwq,LFN) = N_conc/(KSN + N_conc)
+
+!  ELSE
+!    tracerpp(kwq,lwq,LFN) = 1.0
+   
+!  END IF
+
+! END SUBROUTINE sourceFN
+
+! !************************************************************************
+! SUBROUTINE sourceFP(kwq, lwq)
+! !*********************************************************************
+! !
+! ! Purpose: To calculate FP
+! !
+! !--------------------------------------------------------------------------
+! ! ... Arguments
+!   INTEGER, INTENT (IN) :: kwq,lwq    
+   
 ! ! nutrient limitation - but only if the nutrients are modeled
-! IF ((INH4 ==1) .AND. (INO3 ==1)) THEN
-!   N_conc = tracerpp(kwq,lwq,LNH4) + tracerpp(kwq,lwq,LNO3)
-!   tracerpp(kwq,lwq,LFN)  = N_conc/(KSN + N_conc)
-!
-! ELSE IF (INH4 == 1 .AND. INO3 ==0) THEN
-!   N_conc = tracerpp(kwq,lwq,LNH4)
-!   tracerpp(kwq,lwq,LFN) = N_conc/(KSN + N_conc)
-!
-! ELSE IF (INH4 == 0 .AND. INO3 ==1) THEN
-!   N_conc = tracerpp(kwq,lwq,LNO3)
-!   tracerpp(kwq,lwq,LFN) = N_conc/(KSN + N_conc)
-!
-! ELSE
-!   tracerpp(kwq,lwq,LFN) = 1.0
-!   
-! END IF
-!
-!END SUBROUTINE sourceFN
+!  IF (IPO4 ==1) THEN
+!    tracerpp(kwq,lwq,LFP) = tracerpp(kwq,lwq,LPO4) /(KSP + tracerpp(kwq,lwq,LPO4) )
+   
+!  ELSE
+!    tracerpp(kwq,lwq,LFP) = 1.0
+   
+!  END IF
+
+! END SUBROUTINE sourceFP
 
 !************************************************************************
-!SUBROUTINE sourceFP(kwq, lwq)
+SUBROUTINE sourceFL1(kwq, lwq)
 !*********************************************************************
 !
-! Purpose: To calculate FP
+! Purpose: To calculate FL1
 !
 !--------------------------------------------------------------------------
-!  ! ... Arguments
-!  INTEGER, INTENT (IN) :: kwq,lwq    
-!   
-! ! nutrient limitation - but only if the nutrients are modeled
-! IF (IPO4 ==1) THEN
-!   tracerpp(kwq,lwq,LFP) = tracerpp(kwq,lwq,LPO4) /(KSP + tracerpp(kwq,lwq,LPO4) )
-!   
-! ELSE
-!   tracerpp(kwq,lwq,LFP) = 1.0
-!   
-! END IF
-!
-!END SUBROUTINE sourceFP
+! ... Arguments
+  INTEGER, INTENT (IN) :: kwq,lwq  
 
-!************************************************************************
-!SUBROUTINE sourceFL(kwq, lwq)
-!*********************************************************************
-!
-! Purpose: To calculate FL
-!
-!--------------------------------------------------------------------------
-!  ! ... Arguments
-!  INTEGER, INTENT (IN) :: kwq,lwq  
-!
-! tracerpp(kwq,lwq,LFL) = ((Qsw*QswFr(kwq,lwq)*0.47)/light_sat) *EXP(1 -((Qsw*QswFr(kwq,lwq)*0.47)/light_sat)) ! Steele (1962) = Photoinhibited 
-! 
-!END SUBROUTINE sourceFL
+ tracerpp(kwq,lwq,LFL1) = ((Qsw*QswFr(kwq,lwq)*0.47)/light_sat1) *EXP(1 -((Qsw*QswFr(kwq,lwq)*0.47)/light_sat1)) ! Steele (1962) = Photoinhibited 
+       IF (tracerpp(kwq,lwq,LFL1) .lt. 0.01) THEN
+         tracerpp(kwq,lwq,LFL1) = 0.01
+      END IF
+
+END SUBROUTINE sourceFL1
 
 !***********************************************************************
 FUNCTION parabn ( frstpt, x, fx, dx )
