@@ -366,28 +366,28 @@
 
    ! ... Integer switches to deterimine if constituent is modeled
    INTEGER:: iDO , iPON, iDON, iNH4, iNO3, iPOP, iDOP, iPO4
-   INTEGER:: iDOC, iPOC, iALG1, iALG2, iALG3, iALG4, iFT, iFN, iFP, iFL1
+   INTEGER:: iDOC, iPOC, iALG1, iALG2, iALG3, iALG4, iALG5
 
 
    ! ... Integer to determine constituent location
    INTEGER:: LDO , LPON, LDON, LNH4, LNO3, LPOP, LDOP, LPO4
-   INTEGER:: LDOC, LPOC, LALG1, LALG2, LALG3, LALG4, LFT, LFN, LFP, LFL1
+   INTEGER:: LDOC, LPOC, LALG1, LALG2, LALG3, LALG4, LALG5
 
    ! ... Model Constants - read from input file and many used for calibration
    ! - Stochiometeric constants
    REAL   :: rnc, rpc, roc, ron
 
    ! - Half-saturation values and algal constants
-   REAL   :: KSOD, KDECMIN, KSED, KNIT, KSN, KSP, FNH4, light_sat1, light_sat2, light_sat3, light_sat4
+   REAL   :: KSOD, KDECMIN, KSED, KNIT, KSN, KSP, FNH4, light_sat1, light_sat2, light_sat3, light_sat4, light_sat5
 
    ! - Model rates
-   REAL   :: mu_max1, R_mor1, R_gr1,mu_max2, R_mor2, R_gr2, mu_max3, R_mor3, R_gr3, mu_max4, R_mor4, R_gr4
+   REAL   :: mu_max1, R_mor1, R_gr1,mu_max2, R_mor2, R_gr2, mu_max3, R_mor3, R_gr3, mu_max4, R_mor4, R_gr4, mu_max5, R_mor5, R_gr5
    REAL   :: R_reaer, R_SOD, R_decom_pon, R_miner_don, R_nitrif, R_denit
    REAL   :: R_decom_pop, R_miner_dop, R_decom_poc, R_miner_doc
    REAL   :: R_settl, R_resusp
   
-   ! - Temperature depependence factors
-   REAL    :: Theta_SOD, Theta_mu, Theta_mor, Theta_gr
+   ! - Temperature depependence factors and optimal temperatures for algae growth
+   REAL    :: Topt1, Topt2, Topt3, Topt4, Topt5, Theta_SOD, Theta_mor, Theta_gr
    REAL    :: Theta_decom, Theta_miner, Theta_sedflux,Theta_nitrif,  Theta_denit
    
 
