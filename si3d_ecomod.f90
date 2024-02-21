@@ -790,7 +790,7 @@ SUBROUTINE sourceDO(kwq,lwq)
   ln_Pwv = 11.8751 - (3840.70/Tk) - (216961/(Tk**2.))
   Pwv    = EXP(ln_Pwv)
   theta2 = 0.000975 - 1.426*1E-5 * salp(kwq,lwq) + &
-                      6.436*1E-8 * salp(kwq,lwq)**2.
+  &                    6.436*1E-8 * salp(kwq,lwq)**2.
   OS = OS*Patm*((1-Pwv/Patm) *(1-theta2*Patm))&
   &           /((1-Pwv)*(1-theta2) )
 

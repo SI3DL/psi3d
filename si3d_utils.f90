@@ -183,6 +183,7 @@ SUBROUTINE input
      READ (UNIT=i5, FMT='(14X,I20)', IOSTAT=ios)
      READ (UNIT=i5, FMT='(14X,I20)', IOSTAT=ios)
      READ (UNIT=i5, FMT='(14X,I20)', IOSTAT=ios)
+     READ (UNIT=i5, FMT='(14X,I20)', IOSTAT=ios)
    ENDIF
 
    !.... Read info for plume models & oxygenation systems ................

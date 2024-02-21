@@ -326,7 +326,9 @@
       thrs = its/3600.
       IF(omp_get_thread_num ( )==0)THEN
       TimeStart = TIMER(0.0)
-      IF ((ecomod == 1) .AND. (n == nswq)) CALL InitializeScalarFields !! ACC 06/16/2023 added to restart scalars after warmup
+        IF ((ecomod == 1) .AND. (n == nswq)) THEN
+          CALL InitializeScalarFields !! ACC 06/16/2023 added to restart scalars after warmup
+        END IF
       CALL compute_date (idt)
       END IF
 
